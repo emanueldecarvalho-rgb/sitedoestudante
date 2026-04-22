@@ -1,0 +1,444 @@
+Aqui está o código completo para um site informativo sobre HTML e CSS, com design moderno, responsivo, dark/light mode e animações sutis.
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CodeCanvas | HTML + CSS Essenciais</title>
+  <!-- Fontes Modernas & Bibliotecas -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Tailwind CSS via CDN + custom overrides (mantém minimalismo, mas permite expansão) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS para transições suaves e ajustes finos -->
+  <style>
+    /* reset base / transições globais */
+    * {
+      transition: background-color 0.3s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* tema light (padrão) - variáveis CSS */
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.2);
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --code-bg: #f1f5f9;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --shadow-hover: 0 20px 25px -12px rgba(0,0,0,0.1);
+    }
+
+    body.dark {
+      --bg-primary: #0a0c10;
+      --bg-secondary: #11151c;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e6;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56,189,248,0.25);
+      --card-bg: #11151c;
+      --border: #1e293b;
+      --code-bg: #0f172ad9;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.3);
+      --shadow-hover: 0 20px 25px -12px rgba(0,0,0,0.5);
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* custom glassmorph / cards */
+    .glass-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .code-snippet {
+      background-color: var(--code-bg);
+      border-left: 4px solid var(--accent);
+      border-radius: 1rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+    }
+
+    .btn-neon {
+      transition: all 0.2s;
+    }
+    .btn-neon:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
+    }
+
+    .accent-text {
+      color: var(--accent);
+    }
+
+    .border-accent-light {
+      border-color: var(--accent);
+    }
+
+    /* Animações personalizadas */
+    .hover-lift {
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+    .hover-lift:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Imagens placeholders unsplash -> naturezas abstratas e tech */
+    .hero-bg-light {
+      background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);
+    }
+    .dark .hero-bg-light {
+      background: linear-gradient(135deg, #0b1120 0%, #0a0c10 100%);
+    }
+
+    /* scrollbar elegante */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 8px;
+      opacity: 0.6;
+    }
+  </style>
+  <style>
+    /* Ajustes finos para responsividade com tailwind + custom */
+    .hero-section {
+      min-height: 90vh;
+    }
+    .custom-container {
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    @media (max-width: 640px) {
+      .custom-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ================= BOTÃO DARK/LIGHT MODE ================= -->
+  <div class="fixed top-6 right-6 z-50">
+    <button id="themeToggle" class="glass-card p-3 rounded-full backdrop-blur-sm shadow-md focus:outline-none hover:scale-105 transition-all duration-300" aria-label="Alternar tema">
+      <i id="themeIcon" class="fas fa-moon text-xl accent-text"></i>
+    </button>
+  </div>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero-section flex items-center justify-center relative overflow-hidden">
+    <div class="hero-bg-light absolute inset-0 -z-10"></div>
+    <div class="custom-container py-20 md:py-28 text-center" data-aos="fade-up" data-aos-duration="1000">
+      <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide border border-accent-light bg-opacity-10 bg-accent/10 text-accent mb-6">
+        <i class="fas fa-code mr-2"></i> Fundamentos Web
+      </span>
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-accent via-indigo-500 to-sky-500">
+        HTML + CSS <br> A dupla perfeita
+      </h1>
+      <p class="text-xl md:text-2xl text-secondary max-w-3xl mx-auto opacity-80 mb-10">
+        Domine a estrutura e o estilo da web moderna. Crie experiências memoráveis.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#html" class="btn-neon px-8 py-4 rounded-full font-semibold text-white bg-accent shadow-lg hover:shadow-accent/30 transition-all"><i class="fab fa-html5 mr-2"></i> Explorar HTML</a>
+        <a href="#css" class="btn-neon px-8 py-4 rounded-full font-semibold border border-accent text-accent bg-transparent hover:bg-accent/10 transition-all"><i class="fab fa-css3-alt mr-2"></i> Explorar CSS</a>
+      </div>
+      <div class="mt-16 flex justify-center">
+        <div class="animate-bounce">
+          <i class="fas fa-chevron-down text-accent text-2xl opacity-70"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= O QUE É HTML ================= -->
+  <section id="html" class="py-20 md:py-28 custom-container">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div data-aos="fade-right" data-aos-duration="800">
+        <div class="inline-flex items-center gap-2 bg-accent/10 rounded-full px-4 py-1.5 mb-5">
+          <i class="fab fa-html5 text-accent text-xl"></i>
+          <span class="text-sm font-semibold uppercase tracking-wider accent-text">Linguagem de Marcação</span>
+        </div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">HTML é a <span class="accent-text">espinha dorsal</span> da web</h2>
+        <p class="text-lg text-secondary mb-6 leading-relaxed">
+          HTML (HyperText Markup Language) define a <strong class="text-primary">estrutura semântica</strong> do conteúdo. Cada elemento organiza textos, imagens, vídeos e formulários, formando a base de qualquer site. 
+          É a arquitetura invisível que dá sentido e acessibilidade à informação.
+        </p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3"><i class="fas fa-check-circle accent-text"></i><span>Tags semânticas: <code class="bg-code-bg px-2 py-0.5 rounded-md">&lt;header&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code></span></div>
+          <div class="flex items-center gap-3"><i class="fas fa-check-circle accent-text"></i><span>Hierarquia de títulos e acessibilidade</span></div>
+          <div class="flex items-center gap-3"><i class="fas fa-check-circle accent-text"></i><span>Integração nativa com CSS e JavaScript</span></div>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="800">
+        <div class="glass-card p-6 code-snippet overflow-x-auto">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-sm font-mono text-accent"><i class="fab fa-html5 mr-1"></i> estrutura.html</span>
+            <i class="fas fa-copy text-gray-400 hover:text-accent cursor-pointer transition" onclick="copyCode(this)"></i>
+          </div>
+          <pre class="text-sm text-primary font-mono whitespace-pre-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt"&gt;
+&lt;head&gt;
+  &lt;title&gt;Meu Site&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Olá, mundo!&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;p&gt;HTML estrutura tudo.&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+        <p class="text-sm text-secondary mt-4 text-center">Exemplo simplificado de um documento HTML5 semântico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= O QUE É CSS ================= -->
+  <section id="css" class="py-20 md:py-28 bg-secondary/20" style="background-color: var(--bg-secondary);">
+    <div class="custom-container">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1" data-aos="fade-right" data-aos-duration="800">
+          <div class="glass-card p-6 code-snippet overflow-x-auto">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm font-mono text-accent"><i class="fab fa-css3-alt mr-1"></i> estilo.css</span>
+              <i class="fas fa-copy text-gray-400 hover:text-accent cursor-pointer transition" onclick="copyCode(this)"></i>
+            </div>
+            <pre class="text-sm text-primary font-mono whitespace-pre-wrap"><code>/* Seletores modernos + variáveis */
+:root {
+  --primary: #3b82f6;
+}
+
+.card {
+  background: white;
+  border-radius: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+}
+
+h1 {
+  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}</code></pre>
+          </div>
+          <p class="text-sm text-secondary mt-4 text-center">CSS3 com animações, gradientes e Flexbox/Grid.</p>
+        </div>
+        <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="800">
+          <div class="inline-flex items-center gap-2 bg-accent/10 rounded-full px-4 py-1.5 mb-5">
+            <i class="fab fa-css3-alt text-accent text-xl"></i>
+            <span class="text-sm font-semibold uppercase tracking-wider accent-text">Folhas de Estilo</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">CSS dá vida e <span class="accent-text">personalidade</span></h2>
+          <p class="text-lg text-secondary mb-6 leading-relaxed">
+            CSS (Cascading Style Sheets) transforma a estrutura HTML em layouts deslumbrantes. Cores, tipografia, animações e layouts responsivos — tudo controlado por CSS. 
+            Com técnicas modernas como Grid, Flexbox e variáveis, você constrói experiências visuais impressionantes e adaptáveis.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-4">
+            <div class="bg-code-bg rounded-xl px-4 py-2"><span class="font-mono text-accent">display: grid;</span> layouts 2D</div>
+            <div class="bg-code-bg rounded-xl px-4 py-2"><span class="font-mono text-accent">@media</span> responsividade</div>
+            <div class="bg-code-bg rounded-xl px-4 py-2"><span class="font-mono text-accent">keyframes</span> animações</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DICAS DE OURO (Cards com estilo) ================= -->
+  <section class="py-20 custom-container">
+    <div class="text-center mb-14" data-aos="fade-up">
+      <span class="text-accent font-mono text-sm uppercase tracking-widest">✨ masterclass</span>
+      <h2 class="text-4xl md:text-5xl font-bold mt-2">Dicas de Ouro <span class="accent-text">para devs</span></h2>
+      <p class="text-secondary max-w-2xl mx-auto mt-4">Pequenos hábitos e boas práticas que elevam seu código ao próximo nível.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-7">
+      <!-- Dica 1 -->
+      <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="100">
+        <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-5">
+          <i class="fas fa-mobile-alt text-accent text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Mobile First</h3>
+        <p class="text-secondary text-sm">Projete para telas pequenas primeiro e use media queries para expandir. Performance e usabilidade aumentam drasticamente.</p>
+      </div>
+      <!-- Dica 2 -->
+      <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="200">
+        <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-5">
+          <i class="fab fa-css3 text-accent text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">CSS Custom Props</h3>
+        <p class="text-secondary text-sm">Use variáveis CSS para temas dinâmicos e consistência visual. Fácil manutenção e suporte a dark mode nativo.</p>
+      </div>
+      <!-- Dica 3 -->
+      <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="300">
+        <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-5">
+          <i class="fas fa-universal-access text-accent text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Acessibilidade</h3>
+        <p class="text-secondary text-sm">Sempre adicione `alt`, roles semânticas e contraste suficiente. HTML semântico já ajuda leitores de tela.</p>
+      </div>
+      <!-- Dica 4 -->
+      <div class="glass-card p-6 text-center" data-aos="zoom-in" data-aos-delay="400">
+        <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-5">
+          <i class="fas fa-layer-group text-accent text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Flexbox + Grid</h3>
+        <p class="text-secondary text-sm">Use Flex para alinhamentos unidirecionais e Grid para layouts bidimensionais. Juntos criam layouts fluidos e modernos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO BÔNUS: Card de exemplo com código estilizado e call-to-action (reforço visual) -->
+  <section class="pb-24 custom-container">
+    <div class="glass-card overflow-hidden md:flex rounded-3xl shadow-xl" data-aos="flip-up">
+      <div class="md:w-1/2 p-8 md:p-10 bg-gradient-to-br from-accent/5 to-transparent">
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fas fa-gem text-accent text-3xl"></i>
+          <span class="text-xs font-semibold uppercase tracking-wider">código na prática</span>
+        </div>
+        <h3 class="text-3xl font-bold mb-3">Card interativo com HTML & CSS puro</h3>
+        <p class="text-secondary mb-5">Veja como poucas linhas criam um card responsivo, com hover suave e transições. A combinação de estrutura e estilo gera magia visual.</p>
+        <div class="code-snippet p-4 rounded-xl text-sm">
+          <pre class="font-mono text-xs overflow-x-auto"><code>&lt;div class="card"&gt;
+  &lt;img src="https://source.unsplash.com/featured/300x200?code" alt="dev"&gt;
+  &lt;h3&gt;Aprenda fazendo&lt;/h3&gt;
+  &lt;p&gt;CSS Grid + Flex, design responsivo.&lt;/p&gt;
+&lt;/div&gt;
+
+.card {
+  background: var(--card-bg);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+.card:hover { transform: scale(1.02); }</code></pre>
+        </div>
+      </div>
+      <div class="md:w-1/2 bg-cover bg-center min-h-[260px]" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+        <!-- imagem placeholder unsplash (developer setup) -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER elegante -->
+  <footer class="border-t border-border py-10 text-center text-secondary text-sm">
+    <div class="custom-container flex flex-col md:flex-row justify-between items-center gap-4">
+      <span>© 2025 CodeCanvas — HTML & CSS Essenciais</span>
+      <div class="flex gap-5">
+        <a href="#" class="hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-accent transition"><i class="fab fa-github"></i></a>
+        <a href="#" class="hover:text-accent transition"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span>Design minimalista • Dark/Light mode fluido</span>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Inicializa AOS (Animate On Scroll)
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100,
+      easing: 'ease-out-quad'
+    });
+
+    // ================= DARK MODE / LIGHT MODE =================
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const isDark = () => document.body.classList.contains('dark');
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Carrega tema salvo ou prefere sistema
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      setTheme(isDark() ? 'light' : 'dark');
+    });
+
+    // função para copiar código (simples e amigável)
+    window.copyCode = function(btnElement) {
+      const pre = btnElement.closest('.code-snippet')?.querySelector('pre');
+      if (!pre) return;
+      const codeText = pre.innerText;
+      navigator.clipboard.writeText(codeText).then(() => {
+        // feedback visual rápido
+        const originalIcon = btnElement.innerHTML;
+        btnElement.innerHTML = '<i class="fas fa-check text-accent"></i>';
+        setTimeout(() => {
+          btnElement.innerHTML = originalIcon;
+        }, 1500);
+      }).catch(() => {
+        alert('Não foi possível copiar manualmente.');
+      });
+    };
+
+    // scroll suave para links internos (já suave com CSS, mas garantia)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === "#" || !targetId) return;
+        const targetElem = document.querySelector(targetId);
+        if (targetElem) {
+          e.preventDefault();
+          targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+```
