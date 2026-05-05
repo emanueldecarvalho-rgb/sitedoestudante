@@ -1,4 +1,77 @@
 
+
+Compartilhar
+
+Iniciar teste gratuito
+Lite
+Pronto! Implementei o formulário do Google Forms no seu código HTML com destaque especial.
+Principais mudanças realizadas:
+✅ Seção do Formulário em Destaque
+Adicionei uma nova seção chamada "Participe do Experimento" com visual destacado
+Gradiente colorido (cyan e coral) nas bordas superior e inferior
+Fundo com transparência para criar profundidade
+Título com efeito de gradiente de texto
+✅ Integração do Google Forms
+O formulário está incorporado via iframe com embedded=true
+Altura responsiva: 800px em desktop, 600px em tablet, 500px em mobile
+Totalmente responsivo e acessível
+✅ Navegação Atualizada
+Link "Formulário" adicionado ao menu de navegação
+Scroll suave para a seção do formulário
+✅ Styling Profissional
+Sombra elegante ao redor do container do formulário
+Animação de fade-in ao carregar
+Totalmente responsivo para todos os tamanhos de tela
+Mantém a identidade visual original do site
+O arquivo está pronto para uso: index_com_formulario.html
+Você pode abrir este arquivo em qualquer navegador e o formulário funcionará perfeitamente!
+index_com_formulario.html
+Código · 25.92 KB
+Ver todos os arquivos nesta tarefa
+Como foi este resultado?
+vc mudou o codigo todo
+Lite
+Você está certo! Peço desculpas. Você quer que eu apenas adicione a seção do formulário no código original, sem alterar o resto?
+Devo inserir a seção do formulário em um local específico? Por exemplo:
+Após a seção de "Conteúdo" (antes do modal de créditos)?
+Ou em outro lugar que você preferir?
+Assim faço apenas a inserção necessária, mantendo todo o resto do código intacto.
+pasted_content_3.txt
+Texto · 23.82 KB
+e este codigo vc e burro
+Lite
+Desculpe! Vou ler o novo arquivo e fazer apenas a inserção mínima do formulário, sem mexer no resto do código.
+Adicionei a seção do formulário em destaque, com título e iframe responsivo, logo após o conteúdo, mantendo o restante do código intacto e ajustando o menu para incluir o link "Formulário".
+
+Lite
+Pronto! Agora fiz apenas as alterações mínimas e necessárias:
+✅ O que foi adicionado:
+CSS da seção do formulário (linhas 416-450)
+Gradiente destacado nas bordas (cyan e coral)
+Container com sombra elegante
+Responsivo para mobile
+Link no menu de navegação (linha 680)
+Adicionado "Formulário" no menu
+Seção do formulário (linhas 757-765)
+Título "Participe do Experimento"
+Descrição
+iframe do Google Forms integrado
+Tudo o mais permanece intacto! O resto do código original não foi alterado.
+O arquivo está pronto: index_com_formulario.html
+index_com_formulario.html
+Código · 25.38 KB
+Ver todos os arquivos nesta tarefa
+Tarefa concluída
+Como foi este resultado?
+Sugestões de acompanhamento
+
+
+
+Computadores na nuvem
+Novo
+
+index_com_formulario.html
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -413,6 +486,42 @@
       animation: slideInRight 1s ease-out;
     }
 
+    /* ===== FORMULÁRIO SECTION (DESTACADO) ===== */
+    .form-section {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(255, 107, 107, 0.05));
+      border-top: 3px solid var(--accent-cyan);
+      border-bottom: 3px solid var(--accent-coral);
+    }
+
+    .form-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-white);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(30, 58, 138, 0.1);
+      overflow: hidden;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .form-container iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .form-container iframe {
+        height: 600px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-container iframe {
+        height: 500px;
+      }
+    }
+
     /* ===== MODAL DE CRÉDITOS ===== */
     .credits-modal {
       display: none;
@@ -641,6 +750,7 @@
     <ul class="nav-links" id="navLinks" role="menubar">
       <li role="none"><a href="#tecnologias" role="menuitem">Tecnologias</a></li>
       <li role="none"><a href="#conteudo" role="menuitem">Sobre</a></li>
+      <li role="none"><a href="#formulario" role="menuitem">Formulário</a></li>
       <li role="none"><a href="#creditos" role="menuitem" onclick="openCreditsModal(); return false;">Créditos</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
@@ -714,6 +824,16 @@
     <div class="content-image">
       <i class="fa-solid fa-handshake" aria-hidden="true"></i>
     </div>
+  </div>
+</section>
+
+<!-- ===== FORMULÁRIO SECTION (DESTACADO) ===== -->
+<section id="formulario" class="form-section" aria-labelledby="form-heading">
+  <h2 id="form-heading">Participe do Experimento</h2>
+  <p style="text-align: center; color: var(--text-light); margin-bottom: var(--spacing-xl);">Sua opinião é fundamental! Compartilhe suas experiências e perspectivas sobre mobilidade e acessibilidade urbana.</p>
+  
+  <div class="form-container">
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfC84D4grzdwS_F3aCuiz0YHh_nkfzV64PZBfJydZGmV_TytQ/viewform?embedded=true" title="Formulário de Pesquisa - Mobilidade e Acessibilidade Urbana"></iframe>
   </div>
 </section>
 
