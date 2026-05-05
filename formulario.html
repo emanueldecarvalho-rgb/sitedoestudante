@@ -1,0 +1,866 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Landing Page sobre Experimento de Mobilidade e Acessibilidade Urbana. Conheça tecnologias e soluções para cidades mais inclusivas." />
+  <title>Mobilidade & Acessibilidade Urbana — Experimento Educativo</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    /* ===== CSS RESET & VARIABLES ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Cores */
+      --primary-dark: #0f172a;
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --accent-coral: #ff6b6b;
+      --accent-cyan: #00d9ff;
+      --accent-green: #10b981;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      
+      /* Tipografia */
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      /* Espaçamento */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      --spacing-2xl: 4rem;
+      
+      /* Transições */
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== TIPOGRAFIA ===== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+    h2 { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+    h3 { font-size: clamp(1.25rem, 4vw, 1.75rem); }
+
+    p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      line-height: 1.8;
+    }
+
+    /* ===== ANIMAÇÕES ===== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      transition: var(--transition);
+    }
+
+    .nav-logo:hover {
+      color: var(--accent-cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-cyan);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      margin-top: 80px;
+      min-height: calc(100vh - 80px);
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+      color: var(--bg-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-xl) var(--spacing-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero h1 {
+      margin-bottom: var(--spacing-md);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      margin-bottom: var(--spacing-lg);
+      opacity: 0.95;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: var(--accent-cyan);
+      color: var(--primary-dark);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 2px solid var(--accent-cyan);
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: var(--accent-cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+    }
+
+    .cta-button:focus {
+      outline: 2px solid var(--bg-white);
+      outline-offset: 3px;
+    }
+
+    /* ===== SECTION GERAL ===== */
+    section {
+      padding: var(--spacing-2xl) var(--spacing-md);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+      color: var(--primary);
+    }
+
+    /* ===== CARDS SECTION ===== */
+    .cards-section {
+      background: var(--bg-white);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: var(--spacing-lg);
+      text-align: center;
+      transition: var(--transition);
+      animation: fadeIn 1s ease-out backwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+      border-color: var(--accent-cyan);
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 107, 107, 0.1));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+    }
+
+    .card h3 {
+      margin-bottom: var(--spacing-sm);
+      color: var(--primary);
+    }
+
+    .card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* ===== CONTENT SECTION ===== */
+    .content-section {
+      background: var(--bg-light);
+    }
+
+    .content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+      align-items: center;
+    }
+
+    .content-text h2 {
+      text-align: left;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .content-text p {
+      margin-bottom: var(--spacing-md);
+      color: var(--text-light);
+    }
+
+    .content-list {
+      list-style: none;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .content-list li {
+      padding: var(--spacing-sm) 0;
+      padding-left: var(--spacing-lg);
+      position: relative;
+      color: var(--text-light);
+    }
+
+    .content-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-green);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .content-image {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-coral));
+      border-radius: 16px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: var(--bg-white);
+      animation: slideInRight 1s ease-out;
+    }
+
+    /* ===== MODAL DE CRÉDITOS ===== */
+    .credits-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-md);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .credits-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: var(--spacing-xl);
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      color: var(--primary);
+    }
+
+    .modal-close:focus {
+      outline: 2px solid var(--primary);
+      border-radius: 4px;
+    }
+
+    .credits-modal h2 {
+      margin-top: 0;
+      margin-bottom: var(--spacing-lg);
+      text-align: left;
+    }
+
+    .credits-list {
+      list-style: none;
+    }
+
+    .credits-list li {
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .credits-list li:last-child {
+      border-bottom: none;
+    }
+
+    .credits-list a {
+      color: var(--primary-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .credits-list a:hover {
+      color: var(--accent-cyan);
+      text-decoration: underline;
+    }
+
+    .credits-list a:focus {
+      outline: 2px solid var(--primary);
+      border-radius: 4px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary-dark);
+      color: var(--bg-white);
+      text-align: center;
+      padding: var(--spacing-lg) var(--spacing-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin-bottom: var(--spacing-sm);
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== ACESSIBILIDADE ===== */
+    :focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ===== MOBILE RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      html { font-size: 14px; }
+
+      nav {
+        padding: var(--spacing-sm);
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--bg-white);
+        border-bottom: 1px solid var(--border-color);
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(10px, 10px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+
+      .hero {
+        margin-top: 60px;
+        padding: var(--spacing-lg) var(--spacing-md);
+      }
+
+      section {
+        padding: var(--spacing-xl) var(--spacing-md);
+      }
+
+      .content-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .content-image {
+        height: 300px;
+        order: -1;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        padding: var(--spacing-lg);
+        max-height: 90vh;
+      }
+    }
+
+    @media (max-width: 480px) {
+      html { font-size: 13px; }
+
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.5rem; }
+
+      section {
+        padding: var(--spacing-lg) var(--spacing-sm);
+      }
+
+      .card {
+        padding: var(--spacing-md);
+      }
+
+      .cta-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav role="navigation" aria-label="Navegação principal">
+  <div class="nav-container">
+    <a href="#" class="nav-logo" aria-label="Início">
+      <i class="fa-solid fa-wheelchair-move" aria-hidden="true"></i>
+      MobiAccess
+    </a>
+    <ul class="nav-links" id="navLinks" role="menubar">
+      <li role="none"><a href="#tecnologias" role="menuitem">Tecnologias</a></li>
+      <li role="none"><a href="#conteudo" role="menuitem">Sobre</a></li>
+      <li role="none"><a href="#creditos" role="menuitem" onclick="openCreditsModal(); return false;">Créditos</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<header class="hero" role="banner">
+  <div class="hero-content">
+    <h1><i class="fa-solid fa-city" aria-hidden="true"></i> Experimento de Mobilidade &amp; Acessibilidade Urbana</h1>
+    <p>Descobra como o design universal e as tecnologias inovadoras transformam cidades em espaços inclusivos para todos.</p>
+    <button class="cta-button" onclick="document.getElementById('tecnologias').scrollIntoView({behavior:'smooth'});" aria-label="Explorar tecnologias de mobilidade">
+      Explorar Agora <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
+
+<!-- ===== CARDS SECTION ===== -->
+<section id="tecnologias" class="cards-section" aria-labelledby="tech-heading">
+  <h2 id="tech-heading">Tecnologias de Mobilidade</h2>
+  <div class="cards-grid">
+    <article class="card">
+      <div class="card-icon">
+        <i class="fa-solid fa-person-hiking" aria-hidden="true"></i>
+      </div>
+      <h3>Rampas Inteligentes</h3>
+      <p>Estruturas adaptativas com sensores que ajustam a inclinação conforme a necessidade, garantindo acessibilidade para cadeirantes e idosos.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">
+        <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+      </div>
+      <h3>Sensores para Deficientes Visuais</h3>
+      <p>Tecnologia de navegação por áudio e vibração que orienta pessoas cegas em espaços públicos, aumentando sua autonomia e segurança.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">
+        <i class="fa-solid fa-bus" aria-hidden="true"></i>
+      </div>
+      <h3>Transporte Adaptado</h3>
+      <p>Ônibus e metrôs com piso baixo, elevadores, áreas reservadas e sinalização em Braille, promovendo inclusão no transporte público.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== CONTENT SECTION ===== -->
+<section id="conteudo" class="content-section" aria-labelledby="content-heading">
+  <div class="content-wrapper">
+    <div class="content-text">
+      <h2 id="content-heading">Design Universal: Beneficiando a Todos</h2>
+      <p>
+        O <strong>design universal</strong> não é apenas sobre acessibilidade para pessoas com deficiência. É sobre criar ambientes, produtos e serviços que funcionam para <strong>todos</strong>, independentemente de idade, habilidade ou condição.
+      </p>
+      <p>
+        Uma calçada acessível beneficia não apenas cadeirantes, mas também pais com carrinhos de bebê, idosos com andadores e pessoas carregando malas. Uma interface digital acessível é mais fácil de usar para todos.
+      </p>
+      <ul class="content-list">
+        <li>Cidades inclusivas atraem mais investimentos e geram empregos</li>
+        <li>Melhora a qualidade de vida de toda a população</li>
+        <li>Reduz custos de saúde pública a longo prazo</li>
+        <li>Promove coesão social e igualdade de oportunidades</li>
+        <li>Cumpre com legislações internacionais (ONU, Lei Brasileira de Inclusão)</li>
+      </ul>
+    </div>
+    <div class="content-image">
+      <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CREDITS MODAL ===== -->
+<div class="credits-modal" id="creditsModal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeCreditsModal();" aria-label="Fechar modal de créditos">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+    <h2 id="modal-title">Fontes e Referências</h2>
+    <ul class="credits-list">
+      <li>
+        <strong>W3C - Web Accessibility Initiative (WAI)</strong><br>
+        <a href="https://www.w3.org/WAI/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/</a><br>
+        <small>Referência mundial em padrões de acessibilidade digital e web.</small>
+      </li>
+      <li>
+        <strong>Lei Brasileira de Inclusão (LBI) - Lei nº 13.146/2015</strong><br>
+        <a href="https://www.gov.br/cidadania/pt-br/acesso-a-informacao/legislacao/lei-brasileira-de-inclusao" target="_blank" rel="noopener noreferrer">Ministério dos Direitos Humanos e da Cidadania</a><br>
+        <small>Legislação brasileira que garante direitos e inclusão de pessoas com deficiência.</small>
+      </li>
+      <li>
+        <strong>IBGE - Instituto Brasileiro de Geografia e Estatística</strong><br>
+        <a href="https://www.ibge.gov.br/" target="_blank" rel="noopener noreferrer">https://www.ibge.gov.br/</a><br>
+        <small>Estatísticas e dados sobre a população com deficiência no Brasil.</small>
+      </li>
+      <li>
+        <strong>ONU-Habitat - Programa das Nações Unidas para Assentamentos Humanos</strong><br>
+        <a href="https://unhabitat.org/" target="_blank" rel="noopener noreferrer">https://unhabitat.org/</a><br>
+        <small>Iniciativas globais para cidades sustentáveis e inclusivas.</small>
+      </li>
+      <li>
+        <strong>ABNT NBR 9050:2020</strong><br>
+        Acessibilidade a edificações, mobiliário, espaços e equipamentos urbanos.<br>
+        <small>Norma técnica brasileira que define padrões de acessibilidade.</small>
+      </li>
+      <li>
+        <strong>Secretarias de Mobilidade Urbana</strong><br>
+        <small>Órgãos municipais e estaduais responsáveis pelo planejamento de mobilidade inclusiva.</small>
+      </li>
+    </ul>
+    <p style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 0.9rem;">
+      <strong>Desenvolvido como um experimento educativo</strong> sobre mobilidade urbana e acessibilidade. Os dados e exemplos são baseados em normas técnicas e iniciativas reais, mas servem para fins de aprendizado e conscientização.
+    </p>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer role="contentinfo">
+  <p>
+    <i class="fa-solid fa-wheelchair-move" aria-hidden="true"></i>
+    <strong>Experimento de Mobilidade &amp; Acessibilidade Urbana</strong>
+  </p>
+  <p>
+    Baseado em normas técnicas: <a href="https://www.abntcatalogo.com.br/" target="_blank" rel="noopener">ABNT NBR 9050:2020</a> | 
+    <a href="#creditos" onclick="openCreditsModal(); return false;">Ver Créditos Completos</a>
+  </p>
+  <p style="margin-top: var(--spacing-md); font-size: 0.85rem; opacity: 0.8;">
+    © 2026 | Desenvolvido com foco em acessibilidade e inclusão
+  </p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // ===== MENU HAMBÚRGUER =====
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
+  });
+
+  // Fechar menu ao clicar em um link
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ===== MODAL DE CRÉDITOS =====
+  const creditsModal = document.getElementById('creditsModal');
+
+  function openCreditsModal() {
+    creditsModal.classList.add('active');
+    creditsModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCreditsModal() {
+    creditsModal.classList.remove('active');
+    creditsModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Fechar modal ao clicar fora
+  creditsModal.addEventListener('click', (e) => {
+    if (e.target === creditsModal) {
+      closeCreditsModal();
+    }
+  });
+
+  // Fechar modal com tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && creditsModal.classList.contains('active')) {
+      closeCreditsModal();
+    }
+  });
+
+  // ===== SCROLL SUAVE =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href !== '#' && document.querySelector(href)) {
+        e.preventDefault();
+        document.querySelector(href).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // ===== ANIMAÇÕES AO SCROLL =====
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observar cards e seções
+  document.querySelectorAll('.card, section').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
+Creating a title requires understanding the content. Could you provide details or context from the uploaded file? - Manus
